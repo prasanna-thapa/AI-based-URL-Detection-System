@@ -7,3 +7,4 @@ python-whois
 dnspython
 pymongo
 scikit-learn
+xgboost==1.7.6
