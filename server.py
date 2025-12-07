@@ -5,9 +5,7 @@ from backend.main import app as api_app
 import os
 
 app = FastAPI()
-
 app.mount("/api", api_app)
-
 BUILD_DIR = "frontend/build"
 
 if os.path.isdir(BUILD_DIR):
@@ -15,10 +13,8 @@ if os.path.isdir(BUILD_DIR):
 
 @app.get("/")
 def serve_react_app():
-    index_path = os.path.join(BUILD_DIR, "index.html")
-    return FileResponse(index_path)
+    return FileResponse(os.path.join(BUILD_DIR, "index.html"))
 
 @app.get("/{full_path:path}")
 def serve_react_any(full_path: str):
-    index_path = os.path.join(BUILD_DIR, "index.html")
-    return FileResponse(index_path)
+    return FileResponse(os.path.join(BUILD_DIR, "index.html"))
