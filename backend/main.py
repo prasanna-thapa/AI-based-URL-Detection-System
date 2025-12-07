@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
 import joblib
 import pandas as pd
-from feature_engineering import extract_features
+from backend.feature_engineering import extract_features   # <-- FIXED IMPORT
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from datetime import datetime
@@ -16,9 +16,8 @@ if MONGO_URI:
         mongo_client = MongoClient(MONGO_URI)
         db = mongo_client["phishing_detector"]
         logs_collection = db["url_logs"]
-    except Exception as e:
+    except Exception:
         logs_collection = None
-        print("MongoDB connection failed:", str(e))
 
 
 def load_model():
@@ -29,7 +28,6 @@ def load_model():
         raise RuntimeError(f"Model failed to load: {e}")
 
 model = load_model()
-
 
 app = FastAPI(title="Phishing Detection API", version="2.0")
 
@@ -42,20 +40,16 @@ app.add_middleware(
 )
 
 class URLInput(BaseModel):
-    url: str  
-
+    url: str
 
 
 def predict_url(url: str):
-    """Predict phishing probability and return label + confidence."""
-
     url = url.strip()
     if not url:
         raise HTTPException(status_code=400, detail="Empty URL provided.")
 
     if not url.startswith("http"):
         url = "https://" + url
-
 
     try:
         features = extract_features(url)
@@ -70,6 +64,7 @@ def predict_url(url: str):
         raise HTTPException(status_code=500, detail=f"Model prediction error: {e}")
 
     return url, label, proba
+
 
 @app.get("/")
 async def home():
@@ -89,7 +84,7 @@ async def predict_api(data: URLInput):
                 "timestamp": datetime.utcnow()
             })
         except Exception:
-            pass  
+            pass
 
     return {
         "url": url,
