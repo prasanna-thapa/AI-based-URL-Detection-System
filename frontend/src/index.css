@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #000;
+}
+
+
+.neon-input {
+  box-shadow: 0 0 12px rgba(0, 255, 170, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.neon-input:focus {
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.45),
+              0 0 40px rgba(0, 255, 170, 0.25);
+}
+
+
+.shadow-green-glow {
+  box-shadow: 0 0 18px rgba(0, 255, 170, 0.4);
+}
+
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 12px #00ff9d);
+}
+
+
+.hologram-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.2);
+}
+
+
+.border-trace {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 2px solid rgba(0, 255, 170, 0.25);
+  animation: traceBorder 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes traceBorder {
+  0% {
+    box-shadow: inset 0 0 12px rgba(0, 255, 170, 0.2);
+  }
+  25% {
+    box-shadow: inset 10px 0 20px rgba(0, 255, 170, 0.35);
+  }
+  50% {
+    box-shadow: inset -10px 0 25px rgba(0, 255, 170, 0.45);
+  }
+  75% {
+    box-shadow: inset 0 -10px 20px rgba(0, 255, 170, 0.35);
+  }
+  100% {
+    box-shadow: inset 0 0 12px rgba(0, 255, 170, 0.2);
+  }
+}
+
+
+.radar-container {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 255, 170, 0.25);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.35);
+}
+
+.radar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(0, 255, 170, 0.85),
+    rgba(0, 255, 170, 0) 40%
+  );
+  animation: radarSpin 2s linear infinite;
+}
+
+@keyframes radarSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+#matrixCanvas {
+  position: absolute;
+  z-index: 1;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.25));
+}
+
+
+body {
+  overflow-x: hidden;
+  background-color: black;
+}
+
+
+.confidence-bar {
+  height: 3px;
+  border-radius: 6px;
+  background: rgba(0, 255, 170, 0.4);
+  overflow: hidden;
+  position: relative;
+}
+
+
+.confidence-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 0,
+    rgba(255, 255, 255, 0.15) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  animation: moveStripes 1.5s linear infinite;
+}
+
+@keyframes moveStripes {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
+}
+
+
+.drop-shadow-red {
+  filter: drop-shadow(0 0 8px #ff3b3b) drop-shadow(0 0 15px #ff3b3b);
+}

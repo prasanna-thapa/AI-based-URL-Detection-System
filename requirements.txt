@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+joblib
+requests
+python-whois
+dnspython
+pymongo
+scikit-learn
