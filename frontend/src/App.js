@@ -34,7 +34,7 @@ function App() {
     const interval = cycleMessages();
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/predict", {
+      const res = await fetch("/api/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
@@ -68,7 +68,6 @@ function App() {
     return "High Risk";
   };
 
-  
   useEffect(() => {
     const canvas = document.getElementById("matrixCanvas");
     const ctx = canvas.getContext("2d");
@@ -104,7 +103,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  
   const SafeIcon = () => (
     <motion.svg
       width="42"
@@ -125,33 +123,27 @@ function App() {
   );
 
   const PhishIcon = () => (
-  <motion.svg
-    width="42"
-    height="42"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#ff3b3b"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="drop-shadow-red"
-    animate={{
-      scale: [1, 1.15, 1],
-      rotate: [0, -3, 3, 0],
-    }}
-    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-  >
-   
-    <path d="M12 2l9 18H3L12 2z" />
-
-  
-    <line x1="12" y1="8" x2="12" y2="13" />
-
-   
-    <circle cx="12" cy="16.5" r="1.3" fill="#ff3b3b" stroke="none" />
-  </motion.svg>
-);
-
+    <motion.svg
+      width="42"
+      height="42"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ff3b3b"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="drop-shadow-red"
+      animate={{
+        scale: [1, 1.15, 1],
+        rotate: [0, -3, 3, 0],
+      }}
+      transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <path d="M12 2l9 18H3L12 2z" />
+      <line x1="12" y1="8" x2="12" y2="13" />
+      <circle cx="12" cy="16.5" r="1.3" fill="#ff3b3b" stroke="none" />
+    </motion.svg>
+  );
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
@@ -175,7 +167,6 @@ function App() {
           A Machine Learning–Enabled Platform for Cyber-Grade Threat URLs Detection.
         </p>
 
-        
         <motion.div
           className="flex w-full max-w-3xl gap-4"
           initial={{ opacity: 0 }}
@@ -202,7 +193,6 @@ function App() {
           </motion.button>
         </motion.div>
 
-     
         {loading && (
           <div className="flex flex-col items-center mt-16">
             <motion.div
@@ -225,7 +215,6 @@ function App() {
           </div>
         )}
 
-        
         {result && !loading && (
           <motion.div
             className="mt-12 p-8 rounded-2xl border border-emerald-400/40 bg-white/10 
@@ -236,7 +225,6 @@ function App() {
           >
             <span className="border-trace"></span>
 
-           
             <div className="flex items-center gap-4 mb-4">
               {result.prediction === "phishing" ? <PhishIcon /> : <SafeIcon />}
               
@@ -274,7 +262,6 @@ function App() {
           </motion.div>
         )}
 
-        
         <p className="text-white text-sm mt-12 text-center font-medium opacity-90">
           ⚠ Note: This AI tool is not always 100% accurate. It may make mistakes when classifying URLs.
         </p>
