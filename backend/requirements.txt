@@ -1,8 +1,10 @@
 fastapi
-uvicorn[standard]
-pydantic
+uvicorn
 pandas
-scikit-learn
-xgboost
 joblib
+requests
+python-whois
+dnspython
 pymongo
+scikit-learn
+xgboost==1.7.6
